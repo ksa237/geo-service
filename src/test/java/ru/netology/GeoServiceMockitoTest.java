@@ -36,6 +36,7 @@ public class GeoServiceMockitoTest {
         Mockito.when(geoService.byIp("172.0.32.11")).thenReturn(russianLocation);
         //Mockito.when(localizationService.)
 
+        Location locRequest = geoService.byIp("172.0.32.11");
 
         //подготовительные данные , входящие параметры теста
         Map<String, String> headersRus = new HashMap<String, String>();
