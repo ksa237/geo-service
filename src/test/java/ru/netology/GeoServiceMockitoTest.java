@@ -39,7 +39,7 @@ public class GeoServiceMockitoTest {
 
         //подготовительные данные , входящие параметры теста
         Map<String, String> headersRus = new HashMap<String, String>();
-        headersRus.put(MessageSenderImpl.IP_ADDRESS_HEADER, "172.123.12.19"); //96.44.183.149 или 172.123.12.19
+        headersRus.put(MessageSenderImpl.IP_ADDRESS_HEADER, "172.0.32.11"); //96.44.183.149 или 172.0.32.11
 
 
         String testRequest = messageSender.send(headersRus);
