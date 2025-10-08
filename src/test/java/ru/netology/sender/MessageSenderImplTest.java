@@ -27,7 +27,6 @@ class MessageSenderImplTest {
         Location russianLocation = new Location("Moscow", Country.RUSSIA, "Lenina", 15);
 
         //зададим поведение для методов mock-классов
-
         Mockito.when(geoService.byIp(Mockito.any())).thenReturn(russianLocation);
         Mockito.when(localizationService.locale(Mockito.any())).thenReturn("Добро пожаловать");
 
@@ -40,4 +39,41 @@ class MessageSenderImplTest {
         Assertions.assertEquals(expected, answer);
 
     }
+
+
+
+    @Test
+    void send_usaIP_receive_enAnswerTest() {
+
+        GeoService geoService = Mockito.mock(GeoServiceImpl.class);
+        LocalizationService localizationService = Mockito.mock(LocalizationServiceImpl.class);
+
+        MessageSender messageSender = new MessageSenderImpl(geoService, localizationService);
+
+        //geoService.byIp возвращает Location, создадим нужный объект этого вида.
+        Location usaLocation = new Location("New York", Country.USA, " 10th Avenue", 32);
+
+        //зададим поведение для методов mock-классов
+        Mockito.when(geoService.byIp(Mockito.any())).thenReturn(usaLocation);
+        Mockito.when(localizationService.locale(Mockito.any())).thenReturn("Welcome");
+
+        //вспомогательные входящие параметры
+        Map<String, String> headersUSA = new HashMap<>();
+        headersUSA.put(MessageSenderImpl.IP_ADDRESS_HEADER, "96.44.183.149");
+
+        String answer = messageSender.send(headersUSA);
+        String expected = "Welcome";
+        Assertions.assertEquals(expected, answer);
+
+    }
+
+
+
+
+
+
+
+
+
+
 }
